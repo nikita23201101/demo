@@ -1,7 +1,7 @@
 package com.Novitskiy.demo.domain.entity;
 
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 
 @Entity
