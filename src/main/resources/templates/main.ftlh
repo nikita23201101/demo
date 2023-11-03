@@ -26,6 +26,7 @@
         <div>
             <b>${student.getGroup()}</b>
             <span>${student.getName()}</span>
+            <strong>${student.getStudentuser()}</strong>
         </div>
     <#else >
         Список пуст
