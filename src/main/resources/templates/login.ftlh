@@ -3,9 +3,8 @@
 
 
 <@c.page>
-    Страница входа
-    <@l.login "/login " />
-    <a href="/registration">
-        Добавить нового пользователя
-    </a>
+    <div class="mb-3">
+        Страница входа
+    </div>
+    <@l.login "/login " false/>
 </@c.page>

@@ -35,6 +35,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    public boolean isAdmin() {return roles.contains( Role.ADMIN );}
+
     public User(String username, String password, boolean active, Set<Role> roles) {
         this.username = username;
         this.password = password;
