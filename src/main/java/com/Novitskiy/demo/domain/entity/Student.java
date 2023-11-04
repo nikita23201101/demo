@@ -18,7 +18,15 @@ public class Student {
     @Column(name = "groupp")
     private Integer groupp;
 
+    private String avatarname;
 
+    public String getAvatarname() {
+        return avatarname;
+    }
+
+    public void setAvatarname(String avatarname) {
+        this.avatarname = avatarname;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -31,10 +39,11 @@ public class Student {
     public void setStudentuser(User studentuser) {
         this.studentuser = studentuser;
     }
-    public Student(String name, Integer groupp, User studentuser) {
+    public Student(String name, Integer groupp, User studentuser, String avatarname) {
         this.name = name;
         this.groupp = groupp;
         this.studentuser = studentuser;
+        this.avatarname = avatarname;
     }
     public Student() {
         name = "безымянный";
