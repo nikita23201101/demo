@@ -1,8 +1,10 @@
 package com.Novitskiy.demo.controllers;
 
-import com.Novitskiy.demo.domain.entity.Student;
-import com.Novitskiy.demo.domain.entity.User;
+import com.Novitskiy.demo.domain.entity.*;
 import com.Novitskiy.demo.domain.repo.StudentRepo;
+import com.Novitskiy.demo.domain.service.FirstnameService;
+import com.Novitskiy.demo.domain.service.LastnameService;
+import com.Novitskiy.demo.domain.service.SecondnameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,6 +23,16 @@ import java.util.UUID;
 public class MainController {
     @Autowired
     private StudentRepo studentRepo;
+
+    @Autowired
+    private LastnameService lastnameService;
+
+    @Autowired
+    private FirstnameService firstnameService;
+
+    @Autowired
+    private SecondnameService secondnameService;
+
     @Value("${upload.path}")
     private String uploadPath;
 
@@ -56,7 +68,14 @@ public class MainController {
             resultFileName = uuidFile + "." + file.getOriginalFilename();
             file.transferTo( new File( uploadDir + "\\" + resultFileName ) );
         }
-        final Student student = new Student( text, groupp, user, resultFileName);
+        String[] names = text.split(" ");
+        firstnameService.saveIntoFirstname(new Firstname(names[1]));
+        Firstname firstname = firstnameService.findFirstnameByName(names[1]);
+        secondnameService.saveIntoSecondname(new Secondname(names[2]));
+        Secondname secondname = secondnameService.findSecondnameByName(names[2]);
+        lastnameService.saveIntoLastname(new Lastname(names[0]));
+        Lastname lastname = lastnameService.findLastnameByName(names[0]);
+        final Student student = new Student(firstname,secondname,lastname, groupp, user, resultFileName);
         studentRepo.save( student );
         Iterable<Student> students = studentRepo.findAll();
         model.addAttribute("students", students);
